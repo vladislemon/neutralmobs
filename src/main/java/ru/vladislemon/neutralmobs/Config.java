@@ -1,11 +1,11 @@
 package ru.vladislemon.neutralmobs;
 
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 public class Config {
     private static final Field MOB_CATEGORY_FIELD = ObfuscationReflectionHelper.findField(EntityType.class, "f_20536_"); // category
-    @SuppressWarnings("deprecation")
-    private static final List<String> DEFAULT_NEUTRAL_MOBS = Registry.ENTITY_TYPE
+    private static final List<String> DEFAULT_NEUTRAL_MOBS = ForgeRegistries.ENTITY_TYPES
+            .getValues()
             .stream()
             .filter(entityType -> getMobCategory(entityType) == MobCategory.MONSTER)
             .map(EntityType::getKey)
